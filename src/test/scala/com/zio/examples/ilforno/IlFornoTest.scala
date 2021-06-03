@@ -16,9 +16,10 @@ object IlFornoTest extends DefaultRunnableSpec {
         val request              = Request("customer#1", PizzaType.Tonno)
         val availableIngredients = Map(Tuna -> 1, Tomato -> 3, Cheese -> 1)
         assertM(System.preparePizza(request, availableIngredients).run)(
-          succeeds(equalTo(Map(Tuna -> 0, Tomato -> 0, Cheese -> 0)))
-        )
+                succeeds(equalTo(Map(Tuna -> 0, Tomato -> 0, Cheese -> 0)))
+               )
       },
+
       testM("prepare pizza requires unavailable ingredients should fail") {
         val request                                    = Request("customer#1", PizzaType.Tonno)
         val availableIngredients: Map[Ingredient, Int] = Map(Cheese -> 1)
@@ -26,6 +27,7 @@ object IlFornoTest extends DefaultRunnableSpec {
           fails(isSubtype[UnavailableIngredient](anything))
         )
       },
+
       testM("start the system and handle a request should work correctly") {
         val request              = Request("customer#1", PizzaType.QuatreFromage)
         val availableIngredients = Map(Tuna -> 10, Tomato -> 30, Cheese -> 10)
